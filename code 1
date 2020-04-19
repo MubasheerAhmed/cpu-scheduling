@@ -1,4 +1,5 @@
 ///c++ program
+///cpu scheduling
 #include<iostream> 
 using namespace std; 
 int twod[10][6]; 
