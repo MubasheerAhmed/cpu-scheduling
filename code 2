@@ -1,0 +1,83 @@
+///c program
+////Here user will give Arrival time, Burst time, Completion time as input
+#include<stdio.h>
+#include<conio.h>
+int main()
+{
+	int at[10];
+	int bt[10];
+	int ct[10];
+	int p[10];
+	int tat[10];
+	int wt[10];
+	int sum;
+	int sum1;
+	float avg;
+	float avg1;
+	int n;
+	int i;
+	int j;
+    printf("Enter total no of proces:");
+    scanf("%d",&n);
+    printf("\n Enter Arrival time for each process:-");
+    for(i=0;i<n;i++)
+    {
+        printf("\nArrival time of process P%d:",i);
+        scanf("%d",&at[i]);
+        p[i]=i;
+    }
+    printf("\n Enter burst time for each process:-");
+    for(i=0;i<n;i++)
+    {
+        printf("\nBurst time of process P%d:",i);
+        scanf("%d",&bt[i]);
+        p[i]=i;
+    }
+    printf("\n Enter completion time for each process:-");
+    for(i=0;i<n;i++)
+    {
+        printf("\ncompletion time of process P%d:",i);
+        scanf("%d",&ct[i]);
+        p[i]=i;
+    }
+    
+    
+   /// tat[0]=0;
+    for(i=0;i<n;i++)
+    {
+        tat[i]=ct[i]-at[i];
+    }
+    for(i=0;i<n;i++)
+    {
+        sum+=tat[i];
+    }
+    avg=(float)sum/n;
+    printf("\n turn around time for each process:-");
+    for(i=0;i<n;i++)
+    {
+    	printf("\n turn around time for process P%d is %d sec.",p[i],tat[i]);
+       
+    }
+    printf("\n Average turn around time is %f sec.",avg);
+    
+    
+    
+    ///wt[0]=0;
+    for(i=0;i<n;i++)
+    {
+        wt[i]=tat[i]-bt[i];
+    }
+    for(i=0;i<n;i++)
+    {
+        sum1+=wt[i];
+    }
+    avg1=(float)sum1/n;
+    printf("\n Waiting time for each process:-");
+    for(i=0;i<n;i++)
+    {
+        printf("\n Waiting time for process P%d is %d sec.",p[i],wt[i]);
+       
+    }
+    printf("\n Average waiting time is %f sec.",avg1);
+	
+}
