@@ -1,0 +1,93 @@
+///c++ program
+#include<iostream> 
+using namespace std; 
+int twod[10][6]; 
+
+void swap(int *p, int *q) 
+{ 
+	int made = *p; 
+	*p = *q; 
+	*q = made; 
+} 
+
+void arrivalTime(int num, int twod[][6]) 
+{ 
+	for(int i=0; i<num; i++) 
+	{ 
+		for(int j=0; j<num-i-1; j++) 
+		{ 
+			if(twod[j][1] > twod[j+1][1]) 
+			{ 
+				for(int m=0; m<5; m++) 
+				{ 
+					swap(twod[j][m], twod[j+1][m]); 
+				} 
+			} 
+		} 
+	} 
+} 
+
+void completionTime(int num, int twod[][6]) 
+{ 
+	int made, val; 
+	twod[0][3] = twod[0][1] + twod[0][2]; 
+	twod[0][5] = twod[0][3] - twod[0][1]; 
+	twod[0][4] = twod[0][5] - twod[0][2]; 
+	
+	for(int i=1; i<num; i++) 
+	{ 
+		made = twod[i-1][3]; 
+		int low = twod[i][2]; 
+		for(int j=i; j<num; j++) 
+		{ 
+			if(made >= twod[j][1] && low >= twod[j][2]) 
+			{ 
+				low = twod[j][2]; 
+				val = j; 
+			} 
+		} 
+		twod[val][3] = made + twod[val][2]; 
+		twod[val][5] = twod[val][3] - twod[val][1]; 
+		twod[val][4] = twod[val][5] - twod[val][2]; 
+		for(int m=0; m<6; m++) 
+		{ 
+			swap(twod[val][m], twod[i][m]); 
+		} 
+	} 
+} 
+
+int main() 
+{ 
+	int num, made; 
+	
+	cout<<"Enter the total number of Processes: "; 
+	cin>>num; 
+	
+	cout<<"Enter the process ID or No\n"; 
+	for(int i=0; i<num; i++) 
+	{ 
+		cout<<"Process "<<i+1<<"\n"; 
+		cout<<"Enter Process Id here: "; 
+		cin>>twod[i][0]; 
+		cout<<"Enter the Arrival Time here: "; 
+		cin>>twod[i][1]; 
+		cout<<"Enter the Burst Time here: "; 
+		cin>>twod[i][2]; 
+	} 
+	
+	cout<<"the data is\n"; 
+	cout<<"Process ID\tArrival Time\tBurst Time\n"; 
+	for(int i=0; i<num; i++) 
+	{ 
+		cout<<twod[i][0]<<"\t\t"<<twod[i][1]<<"\t\t"<<twod[i][2]<<"\n"; 
+	} 
+	
+	arrivalTime(num, twod); 
+	completionTime(num, twod); 
+	cout<<"solution is\n"; 
+	cout<<"Process ID\tArrival Time\tBurst Time\tWaiting Time\tTurnaround Time\n"; 
+	for(int i=0; i<num; i++) 
+	{ 
+		cout<<twod[i][0]<<"\t\t"<<twod[i][1]<<"\t\t"<<twod[i][2]<<"\t\t"<<twod[i][4]<<"\t\t"<<twod[i][5]<<"\n"; 
+	} 
+}
