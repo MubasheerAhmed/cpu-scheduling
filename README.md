@@ -1,0 +1,2 @@
+# cpu-scheduling
+non prremptive
